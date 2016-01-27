@@ -34,6 +34,9 @@ int main(int argc, char *argv[])
 	if(argc < 4) {
 		cout << "usage : rotate [source file] [degree] [dest file]" << endl;
 		cout << "degree will be multiplied by PI." << endl;
+		cout << "example : rotate a.png 0.25 b.jpeg" << endl;
+		cout << "          will rotate a.png 1/4 * PI and write to b.jpeg" << endl;
+		cout << "only png, bmp, jpeg file extension is possible" << endl;
 	} else {
 		auto app = Gtk::Application::create(argc, argv, "org.gtkmm.example");
 		auto pb = Gdk::Pixbuf::create_from_file(argv[1]);
@@ -79,7 +82,9 @@ int main(int argc, char *argv[])
 				}
 			}
 		}
-		q->save(argv[3], "png"); //jpeg, bmp, png, ico possible	
+		string s = string(argv[3]);
+		s = s.substr(s.find_last_of(".") + 1);
+		q->save(argv[3], s); //jpeg, bmp, png, ico possible	
 		return 0;
 	}
 }
