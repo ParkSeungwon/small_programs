@@ -12,3 +12,6 @@ rotate : rotate.cc
 
 filefind : filefind.cc
 	$(CC) filefind.cc -o filefind $(CFLAG) 
+
+% : %.cc
+	$(CC) $< -o $@ $(CFLAG) 
