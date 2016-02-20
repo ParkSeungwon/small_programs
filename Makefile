@@ -1,4 +1,4 @@
-CFLAG = -std=c++11
+CFLAG = -g -std=c++11 -lpthread
 GTKCFLAG = $(shell pkg-config gtkmm-3.0 --cflags)
 GTKLIB = $(shell pkg-config gtkmm-3.0 --libs)
 CC = g++
@@ -12,3 +12,7 @@ rotate : rotate.cc
 
 filefind : filefind.cc
 	$(CC) filefind.cc -o filefind $(CFLAG) 
+
+% : %.cc
+	$(CC) $< -o $@ $(CFLAG)
+#	./$@
