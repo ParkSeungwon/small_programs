@@ -3,7 +3,7 @@ GTKCFLAG = $(shell pkg-config gtkmm-3.0 --cflags)
 GTKLIB = $(shell pkg-config gtkmm-3.0 --libs)
 CC = g++
 SRC = $(wildcard *.cc)
-EXE = $(patsubst %.cc, %, $(SRC))
+EXE = $(patsubst %.cc, %.x, $(SRC))
 
 all : $(EXE)
 
@@ -13,6 +13,9 @@ rotate : rotate.cc
 filefind : filefind.cc
 	$(CC) filefind.cc -o filefind $(CFLAG) 
 
-% : %.cc
+%.x : %.cc
 	$(CC) $< -o $@ $(CFLAG)
 #	./$@
+
+clean:
+	rm $(EXE)
