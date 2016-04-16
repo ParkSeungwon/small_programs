@@ -1,4 +1,4 @@
-CFLAG = -g -std=c++11 -lpthread
+CFLAG = -std=c++11 -lpthread
 GTKCFLAG = $(shell pkg-config gtkmm-3.0 --cflags)
 GTKLIB = $(shell pkg-config gtkmm-3.0 --libs)
 CC = g++
