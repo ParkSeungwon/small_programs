@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
 
 	File f;
 	if(argc < 3) {
-		cout << "usage : ff [directory] [file extension]" << endl;
+		cout << "usage : " + string(argv[0]) + " [directory] [file extension]" << endl;
 		return 0;
 	} else {
 		f.find_all_ext(argv[1], argv[2]);
