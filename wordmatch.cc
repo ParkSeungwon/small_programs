@@ -11,6 +11,7 @@ WordMatch::WordMatch(string w, string m, int c)
 	word = w; 
 	to_match = m; 
 	this->c = c;
+	ch = w[0];
 }
 
 void WordMatch::match() 
@@ -30,39 +31,37 @@ void WordMatch::match()
 	}
 }
 
-void WordMatch::leave() 
+void WordMatch::leave() const
 {
-	WordMatch w(word.erase(0,1), to_match.erase(0,1), c);
+	WordMatch w(word.substr(1), to_match.substr(1), c);
 	w.course = course;
-	w.course.push_back("leave");
+	w.course.push_back("leave " + ch);
 	w.match();
 }
 
-void WordMatch::insert() 
+void WordMatch::insert() const 
 {
-	WordMatch w(word.erase(0,1), to_match, c+1);
+	WordMatch w(word.substr(1), to_match, c+1);
 	w.course = course;
-	w.course.push_back("insert");
+	w.course.push_back("insert " + ch);
 	w.match();
 }
 
-void WordMatch::chg() 
+void WordMatch::chg() const
 {
-	WordMatch w(word.erase(0,1), to_match.erase(0,1), c+1);
+	WordMatch w(word.substr(1), to_match.substr(1), c+1);
 	w.course = course;
-	w.course.push_back("change");
+	w.course.push_back("change " + ch);
 	w.match();
 }
 
-void WordMatch::del() 
+void WordMatch::del() const
 {
 	int i = to_match.find(word[0], 1);
-	cout << word << endl;
-	cout << "found " << word[0] << " at " << i << endl;
 	if(i != string::npos) {
-		WordMatch w(word.erase(0,1), to_match.erase(0, i), c + i - 1);
+		WordMatch w(word.substr(1), to_match.substr(i+1), c + i);
 		w.course = course;
-		w.course.push_back("delete" + to_string(i-1));
+		w.course.push_back("delete" + to_string(i) + to_match.substr(0,i));
 		w.match();
 	}
 }
@@ -70,12 +69,12 @@ void WordMatch::del()
 int main()
 {
 	string s1, s2;
+	cout << "word to match?  ";
 	cin >> s1;
+	cout << "word to change? ";
 	cin >> s2;
-	cout << s1.erase(0,1) << endl;
-	cout << s1[0] << s2[0] << endl;
-	WordMatch w(s1, s2, 0);
+	WordMatch w(s1, s2);
 	w.match();
 	for(auto& a : w.cs) cout << a << endl;
-	cout << w.least << endl;
+	cout << w.least << " operation needed." << endl;
 }

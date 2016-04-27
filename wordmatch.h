@@ -5,7 +5,7 @@
 class WordMatch
 {
 public:
-	WordMatch(std::string w, std::string m, int c);
+	WordMatch(std::string w, std::string m, int c = 0);
 	static int least;
 	std::vector<std::string> course;
 	static std::vector<std::string> cs;
@@ -13,14 +13,14 @@ public:
 	void match();
 
 protected:
-	std::string word, to_match;
+	std::string word, to_match, ch;
 	int c;
 
 private:
-	void leave();
-	void insert();
-	void chg();
-	void del();
+	void leave() const ;
+	void insert() const ;
+	void chg() const ;
+	void del() const ;
 };
 
 
