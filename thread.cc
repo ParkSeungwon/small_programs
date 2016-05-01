@@ -13,6 +13,10 @@ void shared_print(string msg, int id) {
 //	mu.unlock();
 }
 
+void f() {
+	this_thread::sleep_for(chrono::seconds(1));
+}
+
 class LogFile {
 	mutex mutex_;
 	ofstream f;

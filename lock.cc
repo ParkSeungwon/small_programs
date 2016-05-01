@@ -2,6 +2,7 @@
 #include <mutex>
 #include <iostream>
 #include <deque>
+#include <future>
 #include <condition_variable>
 using namespace std;
 
@@ -43,6 +44,8 @@ int main ()
 	thread t1(function_1);
 	thread t2(function_2);
 
+	auto f = async([](){return 3;});
+	cout << f.get();
 	t1.join();
 	t2.join();
 	return 0;

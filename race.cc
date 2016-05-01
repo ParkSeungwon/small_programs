@@ -3,7 +3,7 @@
 #include <thread>
 #include <functional>
 using namespace std;
-
+void f() {this_thread::sleep_for(chrono::seconds(1));}
 void func(int& counter)
 {
 	for(int i=0; i<10000; i++) ++counter;
@@ -18,5 +18,6 @@ int main()
 	}
 	//for(auto& t : threads) t.join();
 	cout << "Result = " << counter << endl;
+	for(auto& a : threads) a.join();
 	return 0;
 }
