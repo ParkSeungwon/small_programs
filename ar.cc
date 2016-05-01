@@ -23,7 +23,7 @@ int main()
 {
 	int n;
 	vector<vector<int>> ar;
-	cout << "number ? ";
+	cout << "over 30 will take too long for normal computer." << endl << "number ? ";
 	cin >> n;
 	for(auto& a : arr(n)) {
 		for(auto& b : a) cout << b;

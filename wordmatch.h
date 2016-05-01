@@ -13,7 +13,7 @@ public:
 	void match();
 
 protected:
-	std::string word, to_match, ch;
+	std::string word, to_match;
 	int c;
 
 private:

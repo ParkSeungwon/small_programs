@@ -5,6 +5,9 @@
 
 std::mutex mtx;           // mutex for critical section
 
+void func1() {
+	std::this_thread::sleep_for(std::chrono::seconds(1));
+}
 void print_block (int n, char c) {
   // critical section (exclusive access to std::cout signaled by lifetime of lck):
   std::unique_lock<std::mutex> lck (mtx);

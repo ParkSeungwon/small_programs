@@ -11,16 +11,17 @@ WordMatch::WordMatch(string w, string m, int c)
 	word = w; 
 	to_match = m; 
 	this->c = c;
-	ch = w[0];
 }
 
 void WordMatch::match() 
 {
 	if(word.size() == 0) {
-		c += to_match.size();
+		int sz = to_match.size();
+		c += sz;
 		if(least > c) {
 			least = c;
 			cs = course;
+			if(sz > 0) cs.push_back("delete " + to_match);
 		}
 	} else if(to_match.size() == 0) insert();
 	else {
@@ -35,7 +36,7 @@ void WordMatch::leave() const
 {
 	WordMatch w(word.substr(1), to_match.substr(1), c);
 	w.course = course;
-	w.course.push_back("leave " + ch);
+	w.course.push_back(string("leave ") + word[0]);
 	w.match();
 }
 
@@ -43,7 +44,7 @@ void WordMatch::insert() const
 {
 	WordMatch w(word.substr(1), to_match, c+1);
 	w.course = course;
-	w.course.push_back("insert " + ch);
+	w.course.push_back(string("insert ") + word[0]);
 	w.match();
 }
 
@@ -51,7 +52,7 @@ void WordMatch::chg() const
 {
 	WordMatch w(word.substr(1), to_match.substr(1), c+1);
 	w.course = course;
-	w.course.push_back("change " + ch);
+	w.course.push_back(string("change ") + to_match[0] + " -> " + word[0]);
 	w.match();
 }
 
@@ -61,7 +62,7 @@ void WordMatch::del() const
 	if(i != string::npos) {
 		WordMatch w(word.substr(1), to_match.substr(i+1), c + i);
 		w.course = course;
-		w.course.push_back("delete" + to_string(i) + to_match.substr(0,i));
+		w.course.push_back("delete " + to_match.substr(0,i) + " -> " + word[0]);
 		w.match();
 	}
 }
