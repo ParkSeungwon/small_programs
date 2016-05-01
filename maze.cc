@@ -8,6 +8,32 @@ using namespace std;
 int Maze::count = 10000;
 vector<vector<int>> Maze::road = {};
 
+Maze::Maze(int w, int h)
+{
+	width = w; height = h;
+	uniform_real_distribution<> nd(0,10);
+	knuth_b e(chrono::system_clock::now().time_since_epoch().count());
+	vector<int> v;
+	for(int y=0; y<h; y++) {
+		for(int x=0; x<w; x++) {
+			if(nd(e) > 4) v.push_back(1);
+			else v.push_back(0);
+		}
+		maze.push_back(v);
+		v.clear();
+	}
+	maze[0][0] = 1;
+	maze[h-1][w-1] = 1;
+	count = 10000;
+}
+
+Maze::Maze(const vector<vector<int>>& v)
+{
+	maze = v;
+	width = v[0].size();
+	height = v.size();
+}
+
 void Maze::show_maze(const vector<vector<int>>& v) const
 {
 	cout << "Map : s.start e.end 0.wall 1.road 2.can_go 3.shortest_road" << endl;
@@ -20,12 +46,16 @@ void Maze::show_maze(const vector<vector<int>>& v) const
 		}
 		cout << endl;
 	}
+	for(auto& a : v) {
+		for(auto& b : a) cout << b;
+		cout << endl;
+	}
 }
 
 bool Maze::show() const
 {
 	show_maze(maze);
-	return maze[height-1][width-1] == 2;
+	return get(width-1, height-1) == 2;
 }
 
 int Maze::show_road() const
@@ -42,7 +72,7 @@ void Maze::find_way(int x, int y) {
 	if(get(x+1, y) == 1) find_way(x+1, y);
 }
 
-int Maze::get(int x, int y)
+int Maze::get(int x, int y) const
 {
 	if(x < 0 || x >= width) return -1;
 	if(y < 0 || y >= height) return -1;
@@ -65,7 +95,7 @@ void Maze::best_way(int x, int y)
 		return;
 	}
 	if(c >= count) return;
-	if(get(x, y-1)==2) {
+	if(get(x, y-1) == 2) {
 		if(get(x+1, y-1) == 3) return;
 		if(get(x-1, y-1) == 3) return;
 		if(get(x, y-2) == 3) return;
@@ -73,7 +103,7 @@ void Maze::best_way(int x, int y)
 		m.c++;
 		m.best_way(x, y-1);
 	}
-	if(get(x, y+1)==2) {
+	if(get(x, y+1) == 2) {
 		if(get(x+1, y+1) == 3) return;
 		if(get(x-1, y+1) == 3) return;
 		if(get(x, y+2) == 3) return;
@@ -90,7 +120,7 @@ void Maze::best_way(int x, int y)
 		m.best_way(x-1, y);
 	}
 	if(get(x+1, y) == 2) {
-		if(get(x+1, y-1) == 3) return;
+		if(get(x+1, y-1) == 3) return ;
 		if(get(x+1, y+1) == 3) return;
 		if(get(x+2, y) == 3) return;
 		Maze m(*this);
@@ -99,25 +129,6 @@ void Maze::best_way(int x, int y)
 	}
 }
 
-void Maze::build_maze(int w, int h)
-{
-	width = w; height = h;
-	uniform_real_distribution<> nd(0,10);
-	knuth_b e(chrono::system_clock::now().time_since_epoch().count());
-	vector<int> v;
-	maze.clear();
-	for(int y=0; y<h; y++) {
-		for(int x=0; x<w; x++) {
-			if(nd(e) > 4) v.push_back(1);
-			else v.push_back(0);
-		}
-		maze.push_back(v);
-		v.clear();
-	}
-	maze[0][0] = 1;
-	maze[h-1][w-1] = 1;
-	c = 0; count = 10000;
-}
 
 int main(int argc, char** argv)
 {
@@ -128,9 +139,22 @@ int main(int argc, char** argv)
 	int w=atoi(argv[1]);
 	int h=atoi(argv[2]);
 
-	Maze maze;
+	Maze mz {{
+		{1,0,0,1,1},
+		{1,1,0,1,0},
+		{1,1,1,1,0},
+		{0,0,0,1,1},
+		{0,0,1,0,1}
+	}};
+	mz.find_way(0,0);
+	if(mz.show()) {
+		mz.best_way(0, 0);
+		cout << mz.show_road() << " steps taken" << endl;
+	} else cout << "cannot find the way" << endl;
+	cin >> argc;
+
 	while(true) {
-		maze.build_maze(w, h);
+		Maze maze(w, h);
 		maze.show();
 		maze.find_way(0,0);
 		if(maze.show()) {

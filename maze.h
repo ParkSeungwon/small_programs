@@ -4,7 +4,8 @@
 class Maze
 {
 public:
-	void build_maze(int w, int h);
+	Maze(int w, int h);
+	Maze(const std::vector<std::vector<int>>& v);
 	bool show() const;
 	int show_road() const;
 	void find_way(int x, int y);
@@ -12,9 +13,9 @@ public:
 
 private:
 	static int count;
-	int get(int x, int y);
+	int get(int x, int y) const;
 	void show_maze(const std::vector<std::vector<int>>& v) const;
 	std::vector<std::vector<int>> maze;
 	static std::vector<std::vector<int>> road;
-	int width, height, c;
+	int width, height, c = 0;
 };
