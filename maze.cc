@@ -42,14 +42,14 @@ void Maze::show_maze(const vector<vector<int>>& v) const
 		for(int x=0; x<width; x++) {
 			if(x == 0  && y == 0) cout << 's';
 			else if(x == width-1 && y == height-1) cout << 'e';
-			else cout << v[y][x];
+			else cout << maze[y][x];
 		}
 		cout << endl;
 	}
-	for(auto& a : v) {
+/*	for(auto& a : v) {
 		for(auto& b : a) cout << b;
 		cout << endl;
-	}
+	}*/
 }
 
 bool Maze::show() const
@@ -82,6 +82,7 @@ int Maze::get(int x, int y) const
 void Maze::best_way(int x, int y)
 {
 	maze[y][x] = 3;
+	if(c >= count) return;
 	if(width-1 == x && height-1 == y) {
 		if(c < count) {
 			count = c;
@@ -94,7 +95,6 @@ void Maze::best_way(int x, int y)
 		}
 		return;
 	}
-	if(c >= count) return;
 	if(get(x, y-1) == 2) {
 		if(get(x+1, y-1) == 3) return;
 		if(get(x-1, y-1) == 3) return;
@@ -151,7 +151,7 @@ int main(int argc, char** argv)
 		mz.best_way(0, 0);
 		cout << mz.show_road() << " steps taken" << endl;
 	} else cout << "cannot find the way" << endl;
-	cin >> argc;
+//	cin >> argc;
 
 	while(true) {
 		Maze maze(w, h);

@@ -8,6 +8,7 @@ struct Maze
    static int count; 
    static vector<vector<int>> road; 
    void find_way(int x, int y); 
+   int get(int x, int y) const;
    void best_way(int x, int y); 
    void show_maze(const vector<vector<int>>& v); 
    vector<vector<int>> maze; 
@@ -44,6 +45,14 @@ Maze::Maze(vector<vector<int>> v)
    } 
    c = 0; 
 } 
+
+int Maze::get(int x, int y) const
+{
+	if(x < 0 || x >= width) return -1;
+	if(y < 0 || y >= height) return -1;
+	return maze[y][x];
+}
+
 void Maze::find_way(int x, int y) { 
    maze[y][x] = 2; 
    if(y > 0 && maze[y-1][x] == 1) find_way(x, y-1); 
@@ -67,21 +76,33 @@ void Maze::best_way(int x, int y)
       return; 
    } 
    if(y > 0 && maze[y-1][x] == 2) { 
+//		if(get(x+1, y-1) == 3) return;
+//		if(get(x-1, y-1) == 3) return;
+//		if(get(x, y-2) == 3) return;
       Maze m(*this); 
       m.c++; 
       m.best_way(x, y-1); 
    } 
    if(y+1 < height && maze[y+1][x] == 2) { 
+//		if(get(x+1, y+1) == 3) return;
+//		if(get(x-1, y+1) == 3) return;
+//		if(get(x, y+2) == 3) return;
       Maze m(*this); 
       m.c++; 
       m.best_way(x, y+1); 
    } 
    if(x > 0 && maze[y][x-1] == 2) { 
+//		if(get(x-1, y+1) == 3) return;
+//		if(get(x-1, y-1) == 3) return;
+//		if(get(x-2, y) == 3) return;
       Maze m(*this); 
       m.c++; 
       m.best_way(x-1, y); 
    } 
    if(x+1 < width && maze[y][x+1] == 2) { 
+//		if(get(x+1, y-1) == 3) return ;
+//		if(get(x+1, y+1) == 3) return;
+//		if(get(x+2, y) == 3) return;
       Maze m(*this); 
       m.c++; 
       m.best_way(x+1, y); 
@@ -107,8 +128,9 @@ int main(int argc, char** argv)
       m.push_back(v); 
       v.clear(); 
    } 
-   m[nd(e)/10*h][nd(e)/10*w] = 8; 
-   m[nd(e)/10*h][nd(e)/10*w] = 9; 
+  // m[nd(e)/10*h][nd(e)/10*w] = 8; 
+  // m[nd(e)/10*h][nd(e)/10*w] = 9; 
+   m[0][0]=8; m[h-1][w-1]=9;
    Maze maze {m}; 
    maze.show_maze(maze.maze); 
    maze.find_way(maze.sx, maze.sy); 
