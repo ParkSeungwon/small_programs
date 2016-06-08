@@ -1,9 +1,9 @@
 #include <future>
 #include <iostream>
 using namespace std;
-void func1() {
-	this_thread::sleep_for(chrono::seconds(1));
-}
+//void func1() {
+//	this_thread::sleep_for(chrono::seconds(1));
+//}
 
 int main()
 {

@@ -8,7 +8,7 @@ using namespace std;
 std::mutex mtx;
 std::condition_variable cv;
 bool ready = false;
-void f() {this_thread::sleep_for(chrono::seconds(1));}
+//void f() {this_thread::sleep_for(chrono::seconds(1));}
 void print_id (int id) {
   std::unique_lock<std::mutex> lck(mtx);
   while (!ready) cv.wait(lck);

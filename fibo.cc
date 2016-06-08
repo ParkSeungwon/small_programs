@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
 
 class FiboSum
@@ -14,7 +13,6 @@ public:
 	}
 	void show() { 
 		for(auto& a : r) {
-			sort(a.begin(), a.end());
 			for(auto& b : a) cout << b << " + " ;
 			cout << " = " << sum << endl;
 		}
