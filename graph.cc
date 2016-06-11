@@ -30,14 +30,15 @@ public:
 			s->me = destination;
 			root->child = s;
 		} else {
-			auto a = search(start);
+			search(start);
 			s = new Path();
 			s->me = destination;
-			insert(a.first, distance, s); 
+			insert(search_result.first, distance, s); 
 		}
 	}
-	pair<Path*, int> search(int n) { return search(n, root, 0); }
+	void search(int n) { search(n, root, 0); }
 	void show() { show(root); }
+	pair<Path*, int> search_result;
 
 private:
 	vector<Path*> v;
@@ -74,19 +75,25 @@ private:
 
 	void show(Path* node) { 
 		cout << node->me << ' '; 
-		if(node->child != nullptr) show(node->child);
-		if(node->sibling != nullptr) show(node->sibling);
+		if(node->child != nullptr) {
+			cout << node->me;
+			cout << 'v' << node->vC << '=';
+			show(node->child);
+		}
+		if(node->sibling != nullptr) {
+			cout << node->me;
+			cout << '-' << node->vS << '=';
+			show(node->sibling);
+		}
 	}
 		
-	pair<Path*, int> search(int n, Path* node, int dis) {
-		cout << node->me << ' ' << dis << endl;
+	void search(int n, Path* node, int dis) {
 		if(node->me == n) {
-//			cout << n << '=' << dis << ' ';
-			return make_pair(node, dis);
+			search_result = make_pair(node, dis);
+			return;
 		}
-		if(node->child != nullptr) return search(n, node->child, node->vC + dis);
-		if(node->sibling != nullptr) return search(n, node->sibling, node->vS + dis);
-		return make_pair(nullptr, 0);
+		if(node->child != nullptr) search(n, node->child, node->vC + dis);
+		if(node->sibling != nullptr) search(n, node->sibling, node->vS + dis);
 	}
 };
 
@@ -98,9 +105,19 @@ int main()
 	tree.insert(7, 5, 8);
 	tree.insert(1, 1, 10);
 	tree.insert(1, 7, 13);
-	auto a = tree.search(2);
-//	auto b = tree.search(13);
-	cout << a.second << " to go to 8" << endl;
-//	cout << b.second << " to go to 8" << endl;
+	tree.insert(1, 7, 12);
+	tree.insert(1, 7, 33);
+	tree.insert(7, 7, 6);
+	tree.insert(7, 4, 9);
+	tree.insert(2, 7, 3);
+	tree.insert(3, 2, 1);
+	tree.search(2);
+	cout << tree.search_result.second << " to go to " << tree.search_result.first->me << endl;
+	tree.search(13);
+	cout << tree.search_result.second << " to go to " << tree.search_result.first->me << endl;
+	tree.search(9);
+	cout << tree.search_result.second << " to go to " << tree.search_result.first->me << endl;
+	tree.search(8);
+	cout << tree.search_result.second << " to go to " << tree.search_result.first->me << endl;
 	tree.show();
 }
