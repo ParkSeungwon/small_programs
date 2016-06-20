@@ -15,6 +15,7 @@ int main ()
 	auto now = system_clock::now();
 	auto tp = system_clock::to_time_t(now);
 	string t = ctime(&tp);
+	cout << t << endl;
 	unordered_map<string, string> months {
 		{"Jan", "01"}, {"Feb", "02"}, {"Mar", "03"}, {"Apr", "04"}, 
 		{"May", "05"}, {"Jun", "06"}, {"Jul", "07"}, {"Aug", "08"}, 

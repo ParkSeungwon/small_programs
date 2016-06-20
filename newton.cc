@@ -37,7 +37,7 @@ double f3(double x) {return sqrt(4-2*cos(x)+1);}
 double f4(double x) {return 400/x;}
 double f5(double x) {return pow(3+exp(x),2);}
 double normal(double x) {
-	double sigma = 0.2/sqrt(100);;
+	double sigma = 1;;
 	double m = 0;
 	return 1/(sigma*sqrt(2*M_PI)) * exp(-(x-m)*(x-m)/(2*sigma*sigma)); 
 }
@@ -48,7 +48,7 @@ int main()
 	cout << juk(f1, 2, 4) << endl;//sin함수 2~4까지 적분 : 0.237
 	//cout << juk(f4, 2, 4) << endl;//이차함수 2~4까지 적분 : 36.66
 	//cout << juk(f5, 0, 2)*M_PI << endl;
-	cout << 2 * juk(normal, 0, 0.03) << endl;
+	cout << 2 * juk(normal, 0, 1.64) << endl;
 	//cout << juk(normal, -100, 100) << endl;
 }
 
