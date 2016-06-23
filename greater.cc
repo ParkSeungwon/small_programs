@@ -1,4 +1,5 @@
 #include<algorithm>
+#include<functional>
 #include<iostream>
 #include<valarray>
 using namespace std;
