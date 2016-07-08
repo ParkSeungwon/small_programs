@@ -11,7 +11,7 @@ bool ready = false;
 //void f() {this_thread::sleep_for(chrono::seconds(1));}
 void print_id (int id) {
   std::unique_lock<std::mutex> lck(mtx);
-  while (!ready) cv.wait(lck);
+  cv.wait(lck, [](){return ready;});
   // ...
   std::cout << "thread " << id << '\n';
 }

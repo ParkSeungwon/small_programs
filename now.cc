@@ -15,7 +15,6 @@ int main ()
 	auto now = system_clock::now();
 	auto tp = system_clock::to_time_t(now);
 	string t = ctime(&tp);
-	cout << t << endl;
 	unordered_map<string, string> months {
 		{"Jan", "01"}, {"Feb", "02"}, {"Mar", "03"}, {"Apr", "04"}, 
 		{"May", "05"}, {"Jun", "06"}, {"Jul", "07"}, {"Aug", "08"}, 
@@ -26,7 +25,8 @@ int main ()
 	if(t[8] == ' ') s += '0';
 	else s += t[8];
 	s += t.substr(9, 10);
-//	cout << t << endl;
+	s.erase(10);
+	s += ".sql";
 	cout << s << endl;
 }
 
