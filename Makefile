@@ -1,4 +1,4 @@
-CFLAG = -std=c++11 -pthread -g -fmax-errors=3
+CFLAG = -std=c++14 -pthread -g -fmax-errors=1
 GTKCFLAG = $(shell pkg-config gtkmm-3.0 --cflags)
 GTKLIB = $(shell pkg-config gtkmm-3.0 --libs)
 CC = g++

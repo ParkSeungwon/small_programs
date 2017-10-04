@@ -1,23 +1,19 @@
-#include <fstream>
+#include<set>
 #include<iostream>
 using namespace std;
 
 int main(int argc, char** argv)
 {
-	if(argc < 3) {
-		cout << "usage : " << argv[0] << " [text file] row" << endl;
-		return 0;
+	set<int> A, B;
+	A.insert(1);
+	int n = atoi(argv[1]), i;
+	for(i=1; A.find(n) == A.end(); i++) {
+		for(auto& a : A) for(auto& b : A) B.insert(a + b);
+		for(auto& c : B) {
+			A.insert(c);
+			cout << c << ' ';
+		}
+		cout << endl;
 	}
-
-	ifstream f(argv[1]);
-	int a = stoi(argv[2]);
-	char c;
-	int i = 0;
-	while(f >> noskipws >> c) {
-		i++;
-		if(c == '\n' || c == '\t') cout << ' ';
-		else cout << c; 
-		if(i % a == 0) cout << '\n';
-	}
+	cout << i << endl;
 }
-

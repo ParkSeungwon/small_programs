@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-vector<unsigned int> div(int num)
+vector<unsigned int> div(long num)
 {
 	vector<unsigned int> prime, component;
 	bool isPrime;
@@ -34,7 +34,7 @@ int main(int argc, char** argv)
 		cout << "usage : " << argv[0] << " [소인수분해할 수]" << endl;
 		return 0;
 	}
-	int n = atoi(argv[1]);
+	long n = atoi(argv[1]);
 	for(auto& a : div(n)) cout << a << "*";
 	cout << " = " << n << endl;
 }

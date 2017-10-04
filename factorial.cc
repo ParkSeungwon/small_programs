@@ -3,8 +3,7 @@
 using namespace std;
 
 int factorial(int i) {
-	if(i == 1) return 1;
-	else return i * factorial(i-1);
+	return i==1 ? 1 : i*factorial(i-1);
 }
 
 float exp(float x) {
@@ -13,7 +12,13 @@ float exp(float x) {
 	return r;
 }
 
-int main()
+int main(int c, char** v)
 {
+
+	char ar[stoi(v[1])];
+	int i{'a'};
+	for(auto& a : ar) a = i++;
+	for(auto& a : ar) cout << a << ' ';
+	cout << factorial(stoi(v[1])) << endl;
 	cout << exp(1) << endl;
 }

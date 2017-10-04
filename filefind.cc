@@ -77,5 +77,7 @@ int main(int argc, char** argv) {
 	} else {
 		f.find_all_ext(argv[1], argv[2]);
 		for(auto a : f.file_names) cout << a << " " << endl;
+		auto a = f.getdir(argv[1]);
+		for(auto& b : a) cout << b.first << ' ' << b.second << endl;
 	}
 }

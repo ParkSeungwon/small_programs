@@ -60,5 +60,16 @@ int main(int argc, char** argv)
 	FiboSum f {i};
 	f.show();
 	f.purge();
+	
+	{
+	int f[3] ={1,2,3};
+	int sum = 0;
+		
+	for(int i=0; f[i%3] < 4000000; i++) {
+		if(!(f[i%3] % 2)) sum += f[i%3];
+		f[i%3] = f[(i+1)%3] + f[(i+2)%3];
+	}
+	cout << sum << endl;
+	}
 }
 	

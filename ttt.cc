@@ -1,4 +1,5 @@
 #include<iostream>
+#include<cstdio>
 using namespace std;
 
 
@@ -26,11 +27,25 @@ void print2(int* arr, int n)
 	print2(ch, n+1);
 }
 
+int get(int n, int x) {
+	if(x == 1 || n == 1) return 1;
+	if(x == n) return 1;
+	return get(n-1, x-1)+ get(n-1, x);
+}
+
 int main()
 {
 	const char* ar = "dfsr4532w";
-	print(ar, 4, 3);
-	cout << 1 << endl;
-	int a[1] = {1};
-	print2(a, 1);
+
+	for(int j=1; j<15; j++) {
+		for(int i=1; i<=j; i++) cout << get(j, i) << ' ';
+		cout << endl;
+	}
+
+	for(int a=3; a<10; a++) cout << a << ' ';
+	int a, b;
+	char c;
+
+	scanf("%c%d%d", &c, &a, &b);
+	cout << endl << c << ' '<< a << ' ' << b;
 }

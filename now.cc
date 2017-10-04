@@ -28,5 +28,8 @@ int main ()
 	s.erase(10);
 	s += ".sql";
 	cout << s << endl;
+	s = "mysqldump dndd -u zezeon --password=cockcodk0 > /home/zezeon/Dropbox/dndd_backup/" + s;
+	system(s.c_str());
+
 }
 

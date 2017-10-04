@@ -11,8 +11,13 @@ void test()
 
 int main()
 {
-	system_clock::time_point start = system_clock::now();
+	system_clock::time_point start, end;
+	start = system_clock::now();
 	test();
-	duration<double> sec = system_clock::now() - start;
+	end = system_clock::now();
+	duration<float> sec = end - start;
 	cout << "took " << sec.count() << " seconds" << endl;
+	start = start + seconds(100);
+	time_t tt = system_clock::to_time_t(start);
+	cout << ctime(&tt); 
 }
